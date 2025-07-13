@@ -1,0 +1,27 @@
+# .github/workflows/review.yml
+name: Java Code Review
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 📦 Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: 🔍 Run Java Code Review
+      run: python3 -m review.review_runner
